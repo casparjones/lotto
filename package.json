@@ -1,0 +1,24 @@
+{
+  "name": "samstagsziehung",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node tests/drawing.test.js",
+    "test:browser": "node tests/browser-check.js",
+    "test:mechanics": "node tests/mechanics.js",
+    "format": "prettier --write src tests index.html vite.config.js"
+  },
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "prettier": "^3.9.6",
+    "vite": "^7.1.0"
+  }
+}

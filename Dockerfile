@@ -1,18 +1,10 @@
-FROM node:22-alpine AS build
+FROM php:8.3-apache
 
-WORKDIR /app
+# Übersicht (index.php) und statische Projektstände (tests/<datum>/)
+COPY index.php /var/www/html/
+COPY tests /var/www/html/tests
 
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY index.html vite.config.js ./
-COPY src ./src
-RUN npm run build
-
-FROM nginx:stable-alpine AS runtime
-
-COPY --from=build /app/dist /usr/share/nginx/html
+RUN rm -f /var/www/html/tests/.dockerignore /var/www/html/tests/.gitignore \
+    && chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]

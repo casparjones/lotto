@@ -1,0 +1,19 @@
+{
+  "name": "lotto-ziehung-1993",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build --outDir ../../tests/2026-09-25 --emptyOutDir",
+    "test": "node tests/abnahme.mjs",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0",
+    "vite": "^7.1.0"
+  }
+}

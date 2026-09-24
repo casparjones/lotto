@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0f1a" />
+    <meta name="description" content="3D-Simulation der Samstags-Lottoziehung 6 aus 49 im Stil der 1990er – mit echter Kugelphysik." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23f4f1e8'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='900' font-size='16' fill='%23111'%3E49%3C/text%3E%3C/svg%3E" />
+    <title>Ziehung der Lottozahlen · 6 aus 49 · Studio 1993</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="leinwand" aria-label="3D-Ansicht der Ziehungsmaschine" role="img"></canvas>
+
+      <!-- Einblendungen liegen exakt über dem Bildausschnitt (16:9 bzw. 4:3) -->
+      <div id="rahmen" class="rahmen">
+        <div class="uhr" aria-hidden="true">19:55</div>
+        <div class="phase-marke" aria-hidden="true"><span class="punkt"></span><span id="phase-text">Bereit</span></div>
+        <div id="stoerung" class="stoerung" hidden></div>
+        <div id="hinweis" class="hinweis" hidden></div>
+
+        <div class="bauchbinde" aria-hidden="true">
+          <div class="bb-titel">Die Lottozahlen <span>6 aus 49</span></div>
+          <div class="bb-reihe">
+            <div class="bb-felder" id="felder"></div>
+            <div class="bb-zusatz"><span class="bb-label">Zz</span><div class="feld" id="feld-zusatz"></div></div>
+            <div class="bb-super"><span class="bb-label">Superzahl</span><div class="feld" id="feld-super"></div></div>
+          </div>
+        </div>
+
+        <div id="tafel" class="tafel" hidden>
+          <div class="tafel-kopf">Die Gewinnzahlen</div>
+          <div class="tafel-zahlen" id="tafel-zahlen"></div>
+          <div class="tafel-unten">
+            <div><span>Zusatzzahl</span><b id="tafel-zusatz"></b></div>
+            <div><span>Superzahl</span><b id="tafel-super"></b></div>
+          </div>
+          <div class="tafel-fuss">Alle Angaben ohne Gewähr · Simulation, Seed <span id="tafel-seed"></span></div>
+        </div>
+      </div>
+
+      <div class="steuerung" role="toolbar" aria-label="Steuerung der Ziehung">
+        <div class="gruppe haupt">
+          <button id="b-start" class="taste start" type="button">Start <kbd>Leertaste</kbd></button>
+          <button id="b-stop" class="taste stop" type="button" disabled>Stop <kbd>Leertaste</kbd></button>
+          <button id="b-reset" class="taste" type="button">Reset <kbd>R</kbd></button>
+        </div>
+        <div class="gruppe">
+          <label class="feldlabel" for="seed">Seed</label>
+          <input id="seed" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="24" />
+        </div>
+        <div class="gruppe" role="group" aria-label="Geschwindigkeit">
+          <button id="b-1x" class="schalter an" type="button" aria-pressed="true">1×</button>
+          <button id="b-2x" class="schalter" type="button" aria-pressed="false">2×</button>
+        </div>
+        <div class="gruppe" role="group" aria-label="Kamera">
+          <button id="b-regie" class="schalter an" type="button" aria-pressed="true">Regie</button>
+          <button id="b-frei" class="schalter" type="button" aria-pressed="false">Frei</button>
+        </div>
+        <div class="gruppe">
+          <button id="b-tv" class="schalter" type="button" aria-pressed="false">TV-Look 1993</button>
+          <button id="b-flimmern" class="schalter klein" type="button" aria-pressed="false" title="50-Hz-Flimmern im TV-Look">50 Hz</button>
+          <button id="b-warm" class="schalter" type="button" aria-pressed="false">Studio warm</button>
+          <button id="b-ton" class="schalter" type="button" aria-pressed="false">Ton</button>
+        </div>
+        <div class="status" aria-hidden="true"><span class="status-label">Phase</span><span id="status-phase">BEREIT</span></div>
+      </div>
+
+      <div id="ansage" class="nur-vorleser" aria-live="polite" aria-atomic="true"></div>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

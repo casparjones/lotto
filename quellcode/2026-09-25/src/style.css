@@ -1,0 +1,156 @@
+/* Studio 1993 — Bedienpult und Einblendungen */
+:root {
+  --tv-blau: rgba(8, 28, 92, 0.78);
+  --tv-blau-hell: rgba(40, 84, 178, 0.9);
+  --gold: #f3c94a;
+  --pult: #0d1320;
+  --pult-rand: #253049;
+  --text: #e9eef6;
+  --gedimmt: #8f9bb3;
+  --schrift-tv: "Futura", "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+  --schrift-ui: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --fh: 720px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; color: var(--text); overflow: hidden; font-family: var(--schrift-ui); }
+#app { position: fixed; inset: 0; }
+#leinwand { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+/* ---------- Einblendungen im Bildausschnitt */
+.rahmen { position: absolute; pointer-events: none; overflow: hidden; font-family: var(--schrift-tv); }
+.uhr {
+  position: absolute; top: 5.5%; right: 5%;
+  font-weight: 800; font-size: calc(var(--fh) * 0.034); letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.82); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+.phase-marke {
+  position: absolute; top: 5.5%; left: 5%;
+  display: flex; align-items: center; gap: 0.5em;
+  font-weight: 700; font-size: calc(var(--fh) * 0.022); letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.phase-marke .punkt { width: 0.6em; height: 0.6em; border-radius: 50%; background: #d23c2f; box-shadow: 0 0 6px #d23c2f; }
+body[data-phase="BEREIT"] .phase-marke .punkt, body[data-phase="ENDE"] .phase-marke .punkt { background: #8a8f99; box-shadow: none; }
+
+.bauchbinde {
+  position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%);
+  transition: opacity 0.6s, transform 0.6s;
+  padding: calc(var(--fh) * 0.012) calc(var(--fh) * 0.02) calc(var(--fh) * 0.016);
+  background: linear-gradient(180deg, rgba(20, 50, 140, 0.8), var(--tv-blau));
+  border-top: calc(var(--fh) * 0.004) solid var(--gold);
+  box-shadow: 0 calc(var(--fh) * 0.006) calc(var(--fh) * 0.02) rgba(0, 0, 0, 0.35);
+}
+.bb-titel {
+  font-weight: 800; font-size: calc(var(--fh) * 0.018); letter-spacing: 0.06em; text-transform: uppercase;
+  color: #fff; margin-bottom: calc(var(--fh) * 0.007);
+}
+.bb-titel span { color: var(--gold); margin-left: 0.4em; }
+.bb-reihe { display: flex; align-items: flex-end; gap: calc(var(--fh) * 0.022); }
+.bb-felder { display: flex; gap: calc(var(--fh) * 0.009); }
+.bb-zusatz, .bb-super { display: flex; flex-direction: column; align-items: center; gap: calc(var(--fh) * 0.004); }
+.bb-label { font-size: calc(var(--fh) * 0.012); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75); }
+.feld {
+  width: calc(var(--fh) * 0.05); height: calc(var(--fh) * 0.05);
+  display: grid; place-items: center;
+  border: calc(var(--fh) * 0.002) solid rgba(255, 255, 255, 0.55);
+  background: rgba(0, 10, 50, 0.35);
+  font-weight: 900; font-size: calc(var(--fh) * 0.032); color: #fff; font-variant-numeric: tabular-nums;
+}
+.feld.voll { background: var(--tv-blau-hell); border-color: #fff; }
+.feld.neu { animation: einblenden 0.45s ease-out; }
+.bb-super .feld { border-color: var(--gold); }
+/* vor der ersten Ziehung und auf der Schlusstafel ausgeblendet */
+body[data-phase="BEREIT"] .bauchbinde, body[data-phase="EINWURF"] .bauchbinde, body[data-phase="ENDE"] .bauchbinde { opacity: 0; transform: translate(-50%, 30%); }
+.bb-super .feld.voll { background: #a0761a; }
+@keyframes einblenden { from { transform: scale(1.35); background: #fff; color: #0a1b5a; } to { transform: scale(1); } }
+
+.stoerung {
+  position: absolute; top: 14%; left: 50%; transform: translateX(-50%);
+  padding: 0.5em 1.1em; font-weight: 800; font-size: calc(var(--fh) * 0.028); letter-spacing: 0.03em;
+  color: #fff; background: rgba(170, 30, 20, 0.88); border-left: 0.3em solid var(--gold);
+  white-space: nowrap;
+}
+.hinweis {
+  position: absolute; top: 14%; right: 5%;
+  padding: 0.4em 0.8em; font-size: calc(var(--fh) * 0.018); font-family: var(--schrift-ui);
+  color: #fff; background: rgba(0, 0, 0, 0.55);
+}
+
+.tafel {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+  min-width: 58%; padding: calc(var(--fh) * 0.03) calc(var(--fh) * 0.045);
+  background: linear-gradient(180deg, rgba(18, 46, 132, 0.92), rgba(6, 22, 78, 0.94));
+  border-top: calc(var(--fh) * 0.006) solid var(--gold);
+  box-shadow: 0 calc(var(--fh) * 0.02) calc(var(--fh) * 0.06) rgba(0, 0, 0, 0.45);
+  text-align: center; animation: tafelAuf 0.6s ease-out;
+}
+@keyframes tafelAuf { from { opacity: 0; transform: translate(-50%, -46%); } }
+.tafel-kopf { font-weight: 800; font-size: calc(var(--fh) * 0.04); text-transform: uppercase; letter-spacing: 0.08em; }
+.tafel-zahlen { display: flex; justify-content: center; gap: calc(var(--fh) * 0.018); margin: calc(var(--fh) * 0.03) 0; }
+.tafel .kugel {
+  width: calc(var(--fh) * 0.1); height: calc(var(--fh) * 0.1); border-radius: 50%;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 30%, #fff, #efe9da 55%, #c9c0aa);
+  color: #111; font-weight: 900; font-size: calc(var(--fh) * 0.048);
+  box-shadow: 0 calc(var(--fh) * 0.006) calc(var(--fh) * 0.012) rgba(0, 0, 0, 0.4);
+}
+.tafel-unten { display: flex; justify-content: center; gap: calc(var(--fh) * 0.06); font-size: calc(var(--fh) * 0.028); }
+.tafel-unten span { text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: rgba(255, 255, 255, 0.8); margin-right: 0.6em; }
+.tafel-unten b { display: inline-grid; place-items: center; min-width: 1.9em; height: 1.9em; background: var(--tv-blau-hell); border: 2px solid #fff; font-weight: 900; }
+.tafel-unten div:last-child b { background: #a0761a; border-color: var(--gold); }
+.tafel-fuss { margin-top: calc(var(--fh) * 0.028); font-size: calc(var(--fh) * 0.015); color: rgba(255, 255, 255, 0.6); font-family: var(--schrift-ui); letter-spacing: 0.04em; }
+
+/* TV-Look: auch die Grafik bekommt Zeilen und Farbsaum */
+.rahmen.tv .bauchbinde, .rahmen.tv .tafel, .rahmen.tv .stoerung { text-shadow: 0.06em 0 0 rgba(255, 60, 60, 0.35), -0.06em 0 0 rgba(60, 140, 255, 0.35); }
+.rahmen.tv .bauchbinde::after, .rahmen.tv .tafel::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+}
+
+/* ---------- Bedienpult */
+.steuerung {
+  position: absolute; left: 50%; bottom: max(10px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px;
+  width: max-content; max-width: calc(100% - 20px);
+  padding: 8px 12px; border-radius: 12px;
+  background: rgba(10, 15, 26, 0.82); border: 1px solid var(--pult-rand);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+.gruppe { display: flex; align-items: center; gap: 6px; }
+.taste, .schalter {
+  font: 600 13px/1 var(--schrift-ui); color: var(--text);
+  background: #1a2336; border: 1px solid #33405d; border-radius: 8px;
+  padding: 9px 12px; cursor: pointer; transition: background 0.15s, border-color 0.15s, transform 0.05s;
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.taste:hover:not(:disabled), .schalter:hover { background: #243050; border-color: #4a5a82; }
+.taste:active:not(:disabled) { transform: translateY(1px); }
+.taste:disabled { opacity: 0.4; cursor: default; }
+.taste.start { background: #1e5a36; border-color: #2f8a52; }
+.taste.start:hover:not(:disabled) { background: #257043; }
+.taste.stop { background: #6a2320; border-color: #9a3a33; }
+.taste.stop:hover:not(:disabled) { background: #82302b; }
+.schalter.an { background: #2a4ea8; border-color: #5b82e0; color: #fff; }
+.schalter.klein { padding: 9px 9px; font-size: 12px; }
+kbd { font: 600 10px/1 var(--schrift-ui); color: var(--gedimmt); border: 1px solid #3a4768; border-radius: 4px; padding: 3px 5px; background: rgba(0, 0, 0, 0.25); }
+.feldlabel { font-size: 12px; color: var(--gedimmt); text-transform: uppercase; letter-spacing: 0.08em; }
+#seed {
+  width: 10ch; font: 600 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--text);
+  background: #0a0f1a; border: 1px solid #33405d; border-radius: 8px; padding: 8px 9px;
+}
+#seed:disabled { opacity: 0.55; }
+.status { display: flex; flex-direction: column; gap: 3px; min-width: 9ch; }
+.status-label { font-size: 10px; color: var(--gedimmt); text-transform: uppercase; letter-spacing: 0.1em; }
+#status-phase { font: 700 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--gold); letter-spacing: 0.05em; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.nur-vorleser { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 760px) {
+  .taste kbd { display: none; }
+  .steuerung { gap: 6px 8px; padding: 6px 8px; }
+  .taste, .schalter { padding: 8px 9px; font-size: 12px; }
+  .status { display: none; }
+}

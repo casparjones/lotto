@@ -1,11 +1,7 @@
-node_modules
-dist
 .git
-.agents
-.codex
-tests
-test-results
-playwright-report
-*.log
-.env
-.env.*
+.idea
+.docksal
+quellcode
+**/node_modules
+Dockerfile
+.dockerignore

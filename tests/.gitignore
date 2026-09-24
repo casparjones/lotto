@@ -2,6 +2,3 @@ node_modules/
 dist/
 test-results/
 playwright-report/
-test-bilder/
-.idea/
-*.log

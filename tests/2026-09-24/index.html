@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0b1726" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23172a3a'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='22' fill='white'%3E6%3C/text%3E%3C/svg%3E"
+    />
+    <title>Samstagsziehung · Studio 1993</title>
+    <script type="module" crossorigin src="./assets/index-C4jP3vte.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/physik-D5oHUHaB.js">
+    <link rel="modulepreload" crossorigin href="./assets/three-DM_tgYuA.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BPYYFO_3.css">
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <a class="brand" href="./" aria-label="Samstagsziehung Startseite"
+          ><span class="brand-mark">6<span>49</span></span
+          ><span
+            >SAMSTAGSZIEHUNG<small>DAS VIRTUELLE LOTTOSTUDIO</small></span
+          ></a
+        >
+        <div class="edition">
+          <span class="dot"></span> STUDIO 1993 <span class="divider">/</span> 6
+          AUS 49
+        </div>
+        <button id="sound" class="quiet" aria-pressed="false">
+          ♪ <span>Ton aus</span>
+        </button>
+      </header>
+      <main>
+        <div class="intro">
+          <div>
+            <div class="eyebrow">EIN SAMSTAGABEND. SIEBEN KUGELN.</div>
+            <h1>Ein Moment voller Möglichkeiten.</h1>
+            <p>
+              Die klassische Lottoziehung — als physikalische 3D-Simulation.
+            </p>
+          </div>
+          <div class="intro-note">
+            Inspiriert vom Fernsehen der 90er.<br />Hier führt die Physik Regie.
+          </div>
+        </div>
+        <section
+          class="studio"
+          aria-label="Interaktives dreidimensionales Ziehungsstudio"
+        >
+          <div id="viewport"></div>
+          <div class="tv-overlay"></div>
+          <div class="broadcast">
+            <span class="dot"></span>
+            <span id="broadcast-status">STUDIO BEREIT</span>
+          </div>
+          <div class="clock">19:55<small>SAMSTAG</small></div>
+          <div class="scene-caption">
+            <span>01 / DAS ZIEHUNGSGERÄT</span
+            ><span>ACRYLGLAS · Ø 750 MM · 49 KUGELN</span>
+          </div>
+          <div class="lower-third">
+            <div class="result-title">
+              <strong>LOTTO <span>6 aus 49</span></strong
+              ><small id="result-caption">DIE GEWINNZAHLEN</small>
+            </div>
+            <div class="results" id="results"></div>
+            <div class="extra">
+              <small>ZUSATZZAHL</small>
+              <div id="extra-number" class="number special">–</div>
+            </div>
+            <div class="extra super">
+              <small>SUPERZAHL</small>
+              <div id="super-number" class="number special">–</div>
+            </div>
+          </div>
+          <div id="notice" role="status"></div>
+        </section>
+        <section class="desk" aria-label="Steuerung">
+          <div class="transport">
+            <button id="start" class="primary">
+              ▶ <span>Start</span> <kbd>␣</kbd></button
+            ><button id="stop">Ⅱ <span>Stop</span> <kbd>␣</kbd></button
+            ><button id="reset">↺ <span>Reset</span> <kbd>R</kbd></button>
+          </div>
+          <div class="settings">
+            <label class="seed-label"
+              >SEED<input
+                id="seed"
+                value="1993"
+                maxlength="64"
+                aria-label="Seed für reproduzierbare Ziehung"
+                spellcheck="false"
+            /></label>
+            <div class="setting">
+              <span>TEMPO</span>
+              <div class="segments">
+                <button id="speed1" aria-pressed="true">1×</button
+                ><button id="speed2" aria-pressed="false">2×</button>
+              </div>
+            </div>
+            <div class="setting">
+              <span>KAMERA</span>
+              <div class="segments">
+                <button id="director" aria-pressed="true">Regie</button
+                ><button id="free" aria-pressed="false">Frei</button>
+              </div>
+            </div>
+            <div class="setting tv-setting">
+              <span>BILD</span
+              ><button id="tv" aria-pressed="false">
+                <span class="switch"></span> TV-Look 1993</button
+              ><label id="flicker-label" hidden
+                ><input id="flicker" type="checkbox" />50-Hz-Flimmern</label
+              >
+            </div>
+          </div>
+        </section>
+        <section class="statusbar">
+          <div>
+            <span class="status-dot"></span><strong id="phase">BEREIT</strong
+            ><span id="phase-description"
+              >Alle Kugeln liegen bereit. Das Studio gehört Ihnen.</span
+            >
+          </div>
+          <span id="elapsed">00:00 <span>/ ZIEHUNGSZEIT</span></span>
+        </section>
+        <div class="footer-notes">
+          <span
+            ><i></i> Simulierte Physik. Keine vorbestimmten Gewinnzahlen.</span
+          ><span>Keine offizielle Ziehung · Kein Glücksspielangebot</span>
+        </div>
+      </main>
+      <footer>
+        <span>STUDIO <b>1993</b></span
+        ><span>Die Ruhe vor der nächsten Zahl.</span
+        ><span>49 KUGELN. ALLE CHANCEN.</span>
+      </footer>
+      <div
+        id="announcer"
+        class="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+    </div>
+  </body>
+</html>

@@ -5,7 +5,7 @@ const p = await b.newPage({ viewport: { width: 1280, height: 800 } });
 const fehler = [];
 p.on("console", (m) => { if (m.type() === "error" || m.type() === "warning") fehler.push(m.text()); });
 p.on("pageerror", (e) => fehler.push(e.message));
-await p.goto(process.env.URL ?? "http://127.0.0.1:8765/tests/2026-09-25/");
+await p.goto(process.env.URL ?? "http://127.0.0.1:8765/tests/claude-opus-5-5/");
 await p.waitForTimeout(1000);
 const info = () => p.evaluate(() => { const z = window.__lotto.ziehung; return { phase: z.phase, t: z.t, zahlen: z.zahlen.join(","), s: z.superzahl, pos: z.welt.kugeln.slice(0, 3).map((k) => k.px.toFixed(6)).join("|") }; });
 for (let runde = 0; runde < 3; runde++) {

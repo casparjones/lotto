@@ -1,0 +1,16 @@
+# FrankenPHP/Caddy für die Lotto-Übersicht.
+# Unterschied zur Standard-Konfiguration: Verzeichnisse liefern zuerst ihr index.html aus
+# (statische Projektstände unter tests/<name>/), statt alles an /index.php weiterzureichen.
+{
+	skip_install_trust
+	frankenphp
+}
+
+{$SERVER_NAME::80} {
+	root /app/public
+	encode zstd br gzip
+
+	php_server {
+		try_files {path} {path}/index.html {path}/index.php =404
+	}
+}

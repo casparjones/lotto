@@ -1,7 +1,7 @@
 // Browsertest: lädt den Build über einen Webserver, prüft Konsole und HTTP-Status, macht Bildschirmfotos.
 // Aufruf: node tests/browser.mjs [URL] [Ausgabeordner]
 import { chromium } from "playwright";
-const url = process.argv[2] ?? "http://127.0.0.1:8765/tests/2026-09-25/";
+const url = process.argv[2] ?? "http://127.0.0.1:8765/tests/claude-opus-5-5/";
 const out = process.argv[3] ?? "./test-bilder";
 const schritte = (process.argv[4] ?? "2,start,6,12,20,30").split(",");
 import { mkdirSync } from "node:fs";

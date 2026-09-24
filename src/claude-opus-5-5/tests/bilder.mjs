@@ -4,7 +4,7 @@ import { chromium } from "playwright";
 import { mkdirSync } from "node:fs";
 const out = process.argv[2];
 const plan = (process.argv[3] ?? "").split(";").filter(Boolean);
-const url = process.env.URL ?? "http://127.0.0.1:8765/tests/2026-09-25/";
+const url = process.env.URL ?? "http://127.0.0.1:8765/tests/claude-opus-5-5/";
 mkdirSync(out, { recursive: true });
 const gpu = process.env.GPU === "1";
 const browser = await chromium.launch({

@@ -14,11 +14,11 @@ mitrotierende Rohr- und Kapselkollider mit Wandgeschwindigkeit und eine bitgenau
 ```sh
 npm install
 npm run dev            # Entwicklung: http://localhost:5173
-npm run build          # statische Seite nach ../../tests/2026-09-25/
+npm run build          # statische Seite nach ../../tests/claude-opus-5-5/
 ```
 
 Die gebaute Seite ist rein statisch (relative Pfade, kein Backend) und läuft z. B. mit `php -S 127.0.0.1:8000`
-im Ordner `lotto/` unter `http://127.0.0.1:8000/tests/2026-09-25/` oder über die Übersicht `http://127.0.0.1:8000/`.
+im Ordner `lotto/` unter `http://127.0.0.1:8000/tests/claude-opus-5-5/` oder über die Übersicht `http://127.0.0.1:8000/`.
 
 Tests:
 

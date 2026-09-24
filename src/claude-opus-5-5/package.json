@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build --outDir ../../tests/2026-09-25 --emptyOutDir",
+    "build": "vite build --outDir ../../tests/claude-opus-5-5 --emptyOutDir",
     "test": "node tests/abnahme.mjs",
     "test:browser": "node tests/browser.mjs"
   },

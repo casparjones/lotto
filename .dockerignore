@@ -1,7 +1,7 @@
 .git
 .idea
 .docksal
-quellcode
+src
 **/node_modules
 Dockerfile
 .dockerignore
